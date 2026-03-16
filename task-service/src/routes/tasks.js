@@ -15,6 +15,16 @@ async function writeLog(level, event, userId, message, meta = {}) {
   } catch (_) {}
 }
 
+// ─── GET /api/tasks/health ─────────────────────────────────
+router.get("/health", async (req, res) => {
+  try {
+    await pool.query("SELECT 1");
+    return res.json({ status: "ok", service: "task-service", db: "connected" });
+  } catch (err) {
+    return res.status(503).json({ status: "error", db: err.message });
+  }
+});
+
 // ─── GET /api/tasks ──────────────────────────────────────────────────────────
 router.get("/", requireAuth, async (req, res) => {
   try {
@@ -159,14 +169,5 @@ router.delete("/:id", requireAuth, async (req, res) => {
   }
 });
 
-// ─── GET /api/tasks/health ───────────────────────────────────────────────────
-router.get("/health", async (req, res) => {
-  try {
-    await pool.query("SELECT 1");
-    return res.json({ status: "ok", service: "task-service", db: "connected" });
-  } catch (err) {
-    return res.status(503).json({ status: "error", db: err.message });
-  }
-});
 
 module.exports = router;
