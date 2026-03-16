@@ -13,6 +13,9 @@
 - **User Service:** `https://user-service-production-57b1.up.railway.app/api/users/health`
 - **Frontend / Client:** `http://172.22.130.4:8080/`
 
+## ✅ สถานะ Set 2
+- งาน Set 2 เสร็จสมบูรณ์ (ครบตามข้อกำหนดหลัก 3 services + 3 databases + deployment)
+
 ---
 
 ## 📝 Project Overview (ภาพรวมของระบบ)
