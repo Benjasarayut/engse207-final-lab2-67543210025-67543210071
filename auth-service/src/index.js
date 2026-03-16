@@ -1,13 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const pool = require("./db/db");
-
 const authRouter = require("./routes/auth");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// ─── Middleware ───────────────────────────────────────────────────────────────
 app.use(
   cors({
     origin: "*",
@@ -18,17 +16,13 @@ app.use(
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-// ─── Routes ───────────────────────────────────────────────────────────────────
 app.use("/api/auth", authRouter);
 
-// root health check
 app.get("/", (req, res) => {
-  res.json({ service: "auth-service", status: "running", port: PORT });
+  res.json({ service: "auth-service", status: "ok", port: PORT });
 });
 
-// ─── Start ────────────────────────────────────────────────────────────────────
 async function start() {
-  // รอ DB พร้อม (retry สูงสุด 10 ครั้ง)
   let retries = 10;
   while (retries > 0) {
     try {
@@ -49,8 +43,8 @@ async function start() {
     process.exit(1);
   }
 
-  app.get("/", (req, res) => {
-    res.json({ service: "auth-service", status: "ok", port: PORT });
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`[auth-service] 🚀 Running on port ${PORT}`);
   });
 }
 
