@@ -11,7 +11,7 @@
 - **Auth Service:** `https://auth-service-production-7268.up.railway.app/api/auth/health`
 - **Task Service:** `https://task-service-production-747e.up.railway.app/api/tasks/health`
 - **User Service:** `https://user-service-production-57b1.up.railway.app/api/users/health`
-- **Frontend / Client:** `http://172.22.130.4:8080/`
+- **Frontend / Client:** `https://engse207-final-lab2-67543210025-67543210071-production-7629.up.railway.app/`
 
 ## ✅ สถานะ Set 2
 - งาน Set 2 เสร็จสมบูรณ์ (ครบตามข้อกำหนดหลัก 3 services + 3 databases + deployment)
