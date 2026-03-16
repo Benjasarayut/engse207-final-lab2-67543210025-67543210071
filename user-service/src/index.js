@@ -44,8 +44,9 @@ async function start() {
     process.exit(1);
   }
 
-app.get("/", (req, res) => {
-  res.json({ service: "user-service", status: "ok", port: PORT });
-});
+ app.get("/", (req, res) => {
+   res.json({ service: "user-service", status: "ok", port: PORT });
+ });
+}
 
 start();
