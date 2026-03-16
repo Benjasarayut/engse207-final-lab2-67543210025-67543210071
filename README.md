@@ -8,10 +8,10 @@
 ---
 
 ## 🌐 URLs ของระบบบน Cloud (Railway)
-- **Auth Service:** `https://[ชื่อโปรเจกต์-auth].up.railway.app`
-- **Task Service:** `https://[ชื่อโปรเจกต์-task].up.railway.app`
-- **User Service:** `https://[ชื่อโปรเจกต์-user].up.railway.app`
-- **Frontend / Client:** `[ใส่ URL ของ Frontend หรือระบุว่ารันผ่าน Localhost]`
+- **Auth Service:** `https://auth-service-production-7268.up.railway.app/api/auth/health`
+- **Task Service:** `https://task-service-production-747e.up.railway.app/api/tasks/health`
+- **User Service:** `https://user-service-production-57b1.up.railway.app/api/users/health`
+- **Frontend / Client:** `http://172.22.130.4:8080/`
 
 ---
 
