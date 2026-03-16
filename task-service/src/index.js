@@ -44,8 +44,8 @@ async function start() {
     process.exit(1);
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[task-service] 🚀 Running on port ${PORT}`);
+  app.get("/", (req, res) => {
+    res.json({ service: "task-service", status: "ok", port: PORT });
   });
 }
 

@@ -49,8 +49,8 @@ async function start() {
     process.exit(1);
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[auth-service] 🚀 Running on port ${PORT}`);
+  app.get("/", (req, res) => {
+    res.json({ service: "auth-service", status: "ok", port: PORT });
   });
 }
 
