@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const pool = require("./db/db");
-
 const usersRouter = require("./routes/users");
 
 const app = express();
@@ -20,7 +19,7 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use("/api/users", usersRouter);
 
 app.get("/", (req, res) => {
-  res.json({ service: "user-service", status: "running", port: PORT });
+  res.json({ service: "user-service", status: "ok", port: PORT });
 });
 
 async function start() {
@@ -44,9 +43,9 @@ async function start() {
     process.exit(1);
   }
 
- app.get("/", (req, res) => {
-   res.json({ service: "user-service", status: "ok", port: PORT });
- });
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`[user-service] 🚀 Running on port ${PORT}`);
+  });
 }
 
 start();
