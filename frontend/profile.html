@@ -233,7 +233,11 @@
             overflow-y: auto;
             overflow-x: hidden;
             width: 100%;
-            padding: 0;
+        }
+
+        .inner {
+            padding: 1.4rem 2rem;
+            max-width: 660px;
         }
 
         .card {
@@ -360,7 +364,6 @@
 
         .btn-save:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(232, 99, 122, .35);
         }
 
         .btn-save:disabled {
@@ -420,22 +423,91 @@
             color: var(--accent);
         }
 
+        /* ── Admin User Table ── */
         .admin-card {
             background: var(--surface);
             border: 1.5px solid var(--border);
             border-radius: 18px;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(232, 99, 122, .06);
+            margin-bottom: 1.4rem;
+            max-width: 900px;
         }
 
         .admin-card-hdr {
             padding: 1rem 1.4rem;
             border-bottom: 1.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--surface2);
+        }
+
+        .admin-card-title {
             font-size: .7rem;
             font-weight: 700;
             letter-spacing: .1em;
             color: var(--accent);
-            background: var(--surface2);
+        }
+
+        .admin-search {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: .35rem .8rem;
+            font-family: var(--font);
+            font-size: .78rem;
+            color: var(--text);
+            outline: none;
+            width: 180px;
+            transition: border-color .2s;
+        }
+
+        .admin-search:focus {
+            border-color: var(--accent);
+        }
+
+        .admin-search::placeholder {
+            color: var(--muted);
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: .75rem;
+            padding: 1rem 1.4rem;
+            border-bottom: 1.5px solid var(--border);
+            background: rgba(253, 246, 240, .5);
+        }
+
+        .astat {
+            text-align: center;
+        }
+
+        .astat-num {
+            font-family: var(--display);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .astat-num.c-all {
+            color: var(--accent);
+        }
+
+        .astat-num.c-admin {
+            color: var(--warn);
+        }
+
+        .astat-num.c-member {
+            color: var(--muted);
+        }
+
+        .astat-label {
+            font-size: .65rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            color: var(--muted);
+            margin-top: .15rem;
         }
 
         table {
@@ -455,9 +527,10 @@
         }
 
         td {
-            padding: .7rem 1.1rem;
+            padding: .75rem 1.1rem;
             font-size: .83rem;
             border-bottom: 1px solid rgba(240, 217, 204, .5);
+            vertical-align: middle;
         }
 
         tr:last-child td {
@@ -486,7 +559,280 @@
             color: var(--accent);
         }
 
-        /* custom scrollbar */
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: inline-grid;
+            place-items: center;
+            font-size: .75rem;
+            font-weight: 700;
+            color: #fff;
+            vertical-align: middle;
+            margin-right: .5rem;
+            flex-shrink: 0;
+        }
+
+        .user-avatar.is-admin {
+            background: linear-gradient(135deg, var(--warn), #e8b96a);
+        }
+
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .task-count-bar {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .task-mini-bar {
+            height: 5px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            min-width: 4px;
+            transition: width .4s ease;
+        }
+
+        .task-num {
+            font-size: .75rem;
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 18px;
+        }
+
+        .date-cell {
+            font-size: .75rem;
+            color: var(--muted);
+        }
+
+        /* Edit role modal */
+        .role-modal-wrap {
+            position: fixed;
+            inset: 0;
+            background: rgba(61, 44, 44, .4);
+            display: grid;
+            place-items: center;
+            z-index: 200;
+            backdrop-filter: blur(6px);
+        }
+
+        .role-modal {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 20px;
+            padding: 1.8rem;
+            width: 100%;
+            max-width: 360px;
+            margin: 1rem;
+            box-shadow: 0 20px 60px rgba(232, 99, 122, .15);
+        }
+
+        .role-modal-hdr {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .role-modal-ttl {
+            font-family: var(--display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .role-modal-x {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .role-modal-x:hover {
+            color: var(--text);
+        }
+
+        .role-user-info {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            padding: .75rem 1rem;
+            background: var(--surface2);
+            border-radius: 10px;
+            margin-bottom: 1.2rem;
+        }
+
+        .role-user-name {
+            font-weight: 600;
+            font-size: .9rem;
+            color: var(--text);
+        }
+
+        .role-user-email {
+            font-size: .72rem;
+            color: var(--muted);
+        }
+
+        .role-options {
+            display: flex;
+            gap: .75rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .role-option {
+            flex: 1;
+            padding: .75rem;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            transition: all .2s;
+            background: var(--surface);
+        }
+
+        .role-option:hover {
+            border-color: var(--accent);
+            background: rgba(232, 99, 122, .04);
+        }
+
+        .role-option.selected {
+            border-color: var(--accent);
+            background: rgba(232, 99, 122, .08);
+        }
+
+        .role-option.selected-admin {
+            border-color: var(--warn);
+            background: rgba(244, 162, 97, .08);
+        }
+
+        .role-option-icon {
+            font-size: 1.3rem;
+            margin-bottom: .3rem;
+        }
+
+        .role-option-label {
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .role-option-sub {
+            font-size: .65rem;
+            color: var(--muted);
+            margin-top: .15rem;
+        }
+
+        .role-actions {
+            display: flex;
+            gap: .6rem;
+        }
+
+        .btn-role-cancel {
+            flex: 1;
+            padding: .65rem;
+            background: none;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            color: var(--muted);
+            font-family: var(--font);
+            font-size: .85rem;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .btn-role-cancel:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+
+        .btn-role-save {
+            flex: 2;
+            padding: .65rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-family: var(--font);
+            font-size: .85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .btn-role-save:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-role-save:disabled {
+            opacity: .5;
+            transform: none;
+        }
+
+        .btn-edit-role {
+            padding: .25rem .65rem;
+            border-radius: 7px;
+            font-family: var(--font);
+            font-size: .7rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid var(--border);
+            background: var(--surface);
+            color: var(--muted);
+            transition: all .15s;
+        }
+
+        .btn-edit-role:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(232, 99, 122, .06);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: .8rem 1.3rem;
+            font-size: .82rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            z-index: 300;
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all .35s;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .1);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.ok {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .toast.err {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -500,18 +846,9 @@
             border-radius: 20px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--accent), var(--accent2));
-        }
-
         * {
             scrollbar-width: thin;
             scrollbar-color: #f9c6d0 transparent;
-        }
-
-        .inner {
-            padding: 1.4rem 2rem;
-            max-width: 600px;
         }
 
         .avatar-upload {
@@ -569,6 +906,13 @@
                 transform: rotate(360deg)
             }
         }
+
+        .empty-row td {
+            text-align: center;
+            padding: 2rem;
+            color: var(--muted);
+            font-size: .85rem;
+        }
     </style>
 </head>
 
@@ -595,7 +939,8 @@
                 <div class="sb-user">
                     <div class="sb-avatar" id="sb-av">?</div>
                     <div>
-                        <div class="sb-uname" id="sb-name">-</div><span class="sb-role-badge" id="sb-role">member</span>
+                        <div class="sb-uname" id="sb-name">-</div>
+                        <span class="sb-role-badge" id="sb-role">member</span>
                     </div>
                     <button class="sb-logout" onclick="doLogout()">✕</button>
                 </div>
@@ -610,6 +955,7 @@
             <div class="main-body">
                 <div class="inner">
 
+                    <!-- Profile Card -->
                     <div class="card">
                         <div class="profile-top">
                             <label class="avatar-upload" title="คลิกเพื่อเปลี่ยนรูป">
@@ -620,7 +966,8 @@
                                     onchange="onAvatarFile(event)" />
                             </label>
                             <div>
-                                <div class="p-name" id="p-name">-</div><span class="p-role" id="p-role">member</span>
+                                <div class="p-name" id="p-name">-</div>
+                                <span class="p-role" id="p-role">member</span>
                             </div>
                         </div>
                         <div class="section-label">🌸 แก้ไขโปรไฟล์</div>
@@ -628,35 +975,63 @@
                         </div>
                         <div class="fg"><label>BIO</label><textarea id="p-bio" placeholder="แนะนำตัวสั้นๆ…"></textarea>
                         </div>
-                        <div class="fg" id="avatar-url-group"><label>AVATAR URL <span
-                                    style="font-size:.65rem;color:var(--muted)">(หรืออัปโหลดรูปด้านบน)</span></label><input
-                                id="p-avatar" type="url" placeholder="https://…" /></div>
+                        <div class="fg" id="avatar-url-group">
+                            <label>AVATAR URL <span
+                                    style="font-size:.65rem;color:var(--muted)">(หรืออัปโหลดรูปด้านบน)</span></label>
+                            <input id="p-avatar" type="url" placeholder="https://…" />
+                        </div>
                         <div class="fg"><label>USERNAME (แก้ไขไม่ได้)</label><input id="p-uname" disabled /></div>
                         <div class="fg"><label>EMAIL (แก้ไขไม่ได้)</label><input id="p-email" disabled /></div>
                         <button class="btn-save" id="save-btn" onclick="saveProfile()">🌸 บันทึกการเปลี่ยนแปลง</button>
                         <div class="msg" id="p-msg"></div>
                     </div>
 
+                    <!-- JWT Card -->
                     <div class="card">
                         <div class="section-label">🔑 JWT Token</div>
                         <div class="jwt-box" id="jwt-box">-</div>
                         <button class="btn-copy" onclick="copyJwt()">📋 คัดลอก Token</button>
                     </div>
 
+                    <!-- Admin User Table -->
                     <div class="admin-card hidden" id="admin-card">
-                        <div class="admin-card-hdr">👑 ADMIN — รายชื่อผู้ใช้ทั้งหมด</div>
+                        <div class="admin-card-hdr">
+                            <div class="admin-card-title">👑 ADMIN — รายชื่อผู้ใช้ทั้งหมด</div>
+                            <input class="admin-search" id="user-search" placeholder="🔍 ค้นหาผู้ใช้…"
+                                oninput="filterUsers()" />
+                        </div>
+
+                        <!-- User summary stats -->
+                        <div class="admin-stats" id="admin-stats">
+                            <div class="astat">
+                                <div class="astat-num c-all" id="stat-total">0</div>
+                                <div class="astat-label">ผู้ใช้ทั้งหมด</div>
+                            </div>
+                            <div class="astat">
+                                <div class="astat-num c-admin" id="stat-admins">0</div>
+                                <div class="astat-label">Admin</div>
+                            </div>
+                            <div class="astat">
+                                <div class="astat-num c-member" id="stat-members">0</div>
+                                <div class="astat-label">Member</div>
+                            </div>
+                        </div>
+
                         <table>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>USERNAME</th>
+                                    <th style="width:40px">ID</th>
+                                    <th>ผู้ใช้</th>
                                     <th>EMAIL</th>
                                     <th>ROLE</th>
+                                    <th>TASK</th>
+                                    <th>สมัครเมื่อ</th>
+                                    <th>จัดการ</th>
                                 </tr>
                             </thead>
                             <tbody id="user-tbody">
                                 <tr>
-                                    <td colspan="4" style="text-align:center;padding:1.5rem;color:var(--muted)">🌸
+                                    <td colspan="7" style="text-align:center;padding:1.5rem;color:var(--muted)">🌸
                                         กำลังโหลด…</td>
                                 </tr>
                             </tbody>
@@ -668,7 +1043,44 @@
         </div>
     </div>
 
+    <!-- Edit Role Modal -->
+    <div class="role-modal-wrap hidden" id="role-modal-wrap">
+        <div class="role-modal">
+            <div class="role-modal-hdr">
+                <span class="role-modal-ttl">🌷 แก้ไข Role ผู้ใช้</span>
+                <button class="role-modal-x" onclick="closeRoleModal()">✕</button>
+            </div>
+            <div class="role-user-info">
+                <div class="sb-avatar" id="rm-avatar" style="width:36px;height:36px;font-size:.9rem;">?</div>
+                <div>
+                    <div class="role-user-name" id="rm-name">-</div>
+                    <div class="role-user-email" id="rm-email">-</div>
+                </div>
+            </div>
+            <div class="role-options">
+                <div class="role-option selected" id="opt-member" onclick="selectRole('member')">
+                    <div class="role-option-icon">🌸</div>
+                    <div class="role-option-label">Member</div>
+                    <div class="role-option-sub">ผู้ใช้ทั่วไป</div>
+                </div>
+                <div class="role-option" id="opt-admin" onclick="selectRole('admin')">
+                    <div class="role-option-icon">👑</div>
+                    <div class="role-option-label">Admin</div>
+                    <div class="role-option-sub">ผู้ดูแลระบบ</div>
+                </div>
+            </div>
+            <div class="role-actions">
+                <button class="btn-role-cancel" onclick="closeRoleModal()">ยกเลิก</button>
+                <button class="btn-role-save" id="rm-save" onclick="saveRole()">🌷 บันทึก</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
     <script>
+        let allUsers = [], allTasks = [], editingUser = null, selectedRole = 'member';
+
         (async () => {
             const token = getToken();
             if (!token) { location.href = '/index.html'; return; }
@@ -676,10 +1088,18 @@
             try {
                 const d = await apiFetch(`${CONFIG.USER_SERVICE_URL}/api/users/me`);
                 const p = d.profile || d; renderProfile(p);
-                if (p.role === 'admin') { document.getElementById('admin-card').classList.remove('hidden'); loadUsers(); }
+                if (p.role === 'admin') {
+                    document.getElementById('admin-card').classList.remove('hidden');
+                    await loadUsers();
+                    // Also try to load tasks for task count per user
+                    try {
+                        const td = await apiFetch(`${CONFIG.TASK_SERVICE_URL}/api/tasks`);
+                        allTasks = Array.isArray(td) ? td : (td.tasks || []);
+                    } catch (_) { allTasks = []; }
+                    renderUserTable(allUsers);
+                }
             } catch (e) { location.href = '/index.html'; }
         })();
-
 
         function onAvatarFile(e) {
             const file = e.target.files[0];
@@ -692,7 +1112,6 @@
                 document.getElementById('p-av-img').style.display = 'block';
                 document.getElementById('p-av').style.display = 'none';
                 document.getElementById('p-avatar').value = base64;
-                // ซ่อน field ถ้าเป็น base64 (ยาวเกิน)
                 document.getElementById('avatar-url-group').style.display = 'none';
             };
             reader.readAsDataURL(file);
@@ -706,11 +1125,7 @@
             const pr = document.getElementById('p-role'); pr.textContent = p.role || 'member'; pr.className = 'p-role' + (p.role === 'admin' ? ' admin' : '');
             const sr = document.getElementById('sb-role'); sr.textContent = p.role || 'member'; sr.className = 'sb-role-badge' + (p.role === 'admin' ? ' admin' : '');
             const grp = document.getElementById('avatar-url-group');
-            if (p.avatar_url && p.avatar_url.startsWith('data:')) {
-                grp.style.display = 'none';
-            } else {
-                grp.style.display = 'block';
-            }
+            grp.style.display = (p.avatar_url && p.avatar_url.startsWith('data:')) ? 'none' : 'block';
             if (p.avatar_url) {
                 const img = document.getElementById('p-av-img');
                 img.src = p.avatar_url; img.style.display = 'block';
@@ -740,21 +1155,150 @@
         }
 
         async function loadUsers() {
-            const tbody = document.getElementById('user-tbody');
             try {
                 const d = await apiFetch(`${CONFIG.USER_SERVICE_URL}/api/users`);
-                const users = Array.isArray(d) ? d : (d.users || []);
-                tbody.innerHTML = users.map(u => `<tr>
-        <td style="color:var(--muted)">${u.user_id || u.id}</td>
-        <td style="font-weight:600">${u.username || '-'}</td>
-        <td style="color:var(--muted)">${u.email || '-'}</td>
-        <td><span class="badge b-${u.role || 'member'}">${u.role || 'member'}</span></td>
-      </tr>`).join('');
-            } catch (e) { tbody.innerHTML = `<tr><td colspan="4" style="color:var(--danger);text-align:center;padding:1rem">${e.message}</td></tr>`; }
+                allUsers = Array.isArray(d) ? d : (d.users || []);
+            } catch (e) { allUsers = []; }
         }
 
-        function copyJwt() { navigator.clipboard.writeText(getToken() || '').then(() => alert('🌸 คัดลอก Token แล้ว!')); }
+        function getTaskCount(user) {
+            if (!allTasks.length) return null;
+            const uid = user.user_id || user.id;
+            const uname = user.username;
+            return allTasks.filter(t => t.user_id === uid || t.username === uname).length;
+        }
+
+        function fmtDate(s) {
+            if (!s) return '-';
+            const d = new Date(s);
+            if (isNaN(d)) return '-';
+            return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear() - 543 + 2568}`;
+        }
+
+        function renderUserTable(users) {
+            const tbody = document.getElementById('user-tbody');
+            // Stats
+            const admins = users.filter(u => u.role === 'admin').length;
+            document.getElementById('stat-total').textContent = allUsers.length;
+            document.getElementById('stat-admins').textContent = allUsers.filter(u => u.role === 'admin').length;
+            document.getElementById('stat-members').textContent = allUsers.filter(u => u.role !== 'admin').length;
+
+            if (!users.length) {
+                tbody.innerHTML = '<tr class="empty-row"><td colspan="7">🌿 ไม่พบผู้ใช้ที่ตรงกัน</td></tr>';
+                return;
+            }
+
+            const maxTasks = Math.max(...users.map(u => getTaskCount(u) || 0), 1);
+
+            tbody.innerHTML = users.map(u => {
+                const isAdmin = u.role === 'admin';
+                const name = u.display_name || u.username || '-';
+                const taskCount = getTaskCount(u);
+                const barWidth = taskCount !== null ? Math.max(Math.round((taskCount / maxTasks) * 80), taskCount > 0 ? 8 : 0) : 0;
+                return `<tr>
+                    <td style="color:var(--muted);font-size:.75rem">${u.user_id || u.id}</td>
+                    <td>
+                        <div class="user-cell">
+                            <div class="user-avatar ${isAdmin ? 'is-admin' : ''}">${name.charAt(0).toUpperCase()}</div>
+                            <div>
+                                <div class="user-name">${esc(name)}</div>
+                                ${u.display_name && u.username ? `<div style="font-size:.7rem;color:var(--muted)">@${esc(u.username)}</div>` : ''}
+                            </div>
+                        </div>
+                    </td>
+                    <td style="color:var(--muted);font-size:.78rem">${esc(u.email || '-')}</td>
+                    <td><span class="badge b-${u.role || 'member'}">${u.role || 'member'}</span></td>
+                    <td>
+                        ${taskCount !== null
+                        ? `<div class="task-count-bar">
+                                <div class="task-mini-bar" style="width:${barWidth}px;"></div>
+                                <span class="task-num">${taskCount}</span>
+                               </div>`
+                        : `<span style="font-size:.72rem;color:var(--muted)">—</span>`}
+                    </td>
+                    <td class="date-cell">${fmtDate(u.created_at)}</td>
+                    <td>
+                        <button class="btn-edit-role" onclick='openRoleModal(${JSON.stringify(u)})'>✏️ Edit</button>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        function filterUsers() {
+            const q = document.getElementById('user-search').value.toLowerCase().trim();
+            if (!q) { renderUserTable(allUsers); return; }
+            const filtered = allUsers.filter(u =>
+                (u.username || '').toLowerCase().includes(q) ||
+                (u.email || '').toLowerCase().includes(q) ||
+                (u.display_name || '').toLowerCase().includes(q) ||
+                (u.role || '').toLowerCase().includes(q)
+            );
+            renderUserTable(filtered);
+        }
+
+        function openRoleModal(user) {
+            editingUser = user;
+            selectedRole = user.role || 'member';
+            const name = user.display_name || user.username || '-';
+            document.getElementById('rm-avatar').textContent = name.charAt(0).toUpperCase();
+            document.getElementById('rm-name').textContent = name;
+            document.getElementById('rm-email').textContent = user.email || '-';
+            selectRole(selectedRole, false);
+            document.getElementById('role-modal-wrap').classList.remove('hidden');
+        }
+
+        function closeRoleModal() {
+            document.getElementById('role-modal-wrap').classList.add('hidden');
+            editingUser = null;
+        }
+
+        function selectRole(role, updateVar = true) {
+            if (updateVar) selectedRole = role;
+            document.getElementById('opt-member').className = 'role-option' + (selectedRole === 'member' ? ' selected' : '');
+            document.getElementById('opt-admin').className = 'role-option' + (selectedRole === 'admin' ? ' selected-admin' : '');
+        }
+
+        async function saveRole() {
+            if (!editingUser) return;
+            const btn = document.getElementById('rm-save');
+            btn.disabled = true; btn.innerHTML = '<span class="spin"></span>กำลังบันทึก…';
+            try {
+                const uid = editingUser.user_id || editingUser.id;
+                await apiFetch(`${CONFIG.USER_SERVICE_URL}/api/users/${uid}`, {
+                    method: 'PUT', body: JSON.stringify({ role: selectedRole })
+                });
+                // Update local state
+                const idx = allUsers.findIndex(u => (u.user_id || u.id) === uid);
+                if (idx !== -1) allUsers[idx].role = selectedRole;
+                closeRoleModal();
+                renderUserTable(allUsers);
+                showToast(`🌸 อัปเดต role เป็น "${selectedRole}" แล้ว`, 'ok');
+            } catch (e) {
+                showToast(e.message, 'err');
+            } finally {
+                btn.disabled = false; btn.textContent = '🌷 บันทึก';
+            }
+        }
+
+        function showToast(msg, type = 'ok') {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.className = `toast ${type} show`;
+            setTimeout(() => t.classList.remove('show'), 2800);
+        }
+
+        function copyJwt() { navigator.clipboard.writeText(getToken() || '').then(() => showToast('🌸 คัดลอก Token แล้ว!', 'ok')); }
         function doLogout() { removeToken(); location.href = '/index.html'; }
+        function esc(s) { return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+        async function apiFetch(url, opts = {}) {
+            const token = getToken();
+            const headers = { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}), ...(opts.headers || {}) };
+            const res = await fetch(url, { ...opts, headers });
+            if (res.status === 401) { removeToken(); location.reload(); return; }
+            const d = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(d.message || d.error || `HTTP ${res.status}`);
+            return d;
+        }
     </script>
 </body>
 

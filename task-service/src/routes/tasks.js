@@ -28,10 +28,17 @@ router.get("/health", async (req, res) => {
 // ─── GET /api/tasks ──────────────────────────────────────────────────────────
 router.get("/", requireAuth, async (req, res) => {
   try {
-    const result = await pool.query(
-      `SELECT * FROM tasks WHERE user_id = $1 ORDER BY created_at DESC`,
-      [req.user.sub],
-    );
+    let result;
+    if (req.user.role === "admin") {
+      // admin ดึง task ทั้งหมด (ไม่ JOIN users เพราะอยู่คนละ DB)
+      result = await pool.query(`SELECT * FROM tasks ORDER BY created_at DESC`);
+    } else {
+      // member ดึงแค่ task ของตัวเอง
+      result = await pool.query(
+        `SELECT * FROM tasks WHERE user_id = $1 ORDER BY created_at DESC`,
+        [req.user.sub],
+      );
+    }
     return res.json(result.rows);
   } catch (err) {
     console.error("[GET /tasks]", err.message);
@@ -42,10 +49,17 @@ router.get("/", requireAuth, async (req, res) => {
 // ─── GET /api/tasks/:id ──────────────────────────────────────────────────────
 router.get("/:id", requireAuth, async (req, res) => {
   try {
-    const result = await pool.query(
-      `SELECT * FROM tasks WHERE id = $1 AND user_id = $2`,
-      [req.params.id, req.user.sub],
-    );
+    let result;
+    if (req.user.role === "admin") {
+      result = await pool.query(`SELECT * FROM tasks WHERE id = $1`, [
+        req.params.id,
+      ]);
+    } else {
+      result = await pool.query(
+        `SELECT * FROM tasks WHERE id = $1 AND user_id = $2`,
+        [req.params.id, req.user.sub],
+      );
+    }
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Task not found" });
     }
@@ -105,11 +119,15 @@ router.put("/:id", requireAuth, async (req, res) => {
   const { title, description, status, priority } = req.body;
 
   try {
-    // ตรวจสอบว่า task นี้เป็นของ user คนนี้
     const existing = await pool.query(
-      `SELECT * FROM tasks WHERE id = $1 AND user_id = $2`,
-      [req.params.id, req.user.sub],
+      req.user.role === "admin"
+        ? `SELECT * FROM tasks WHERE id = $1`
+        : `SELECT * FROM tasks WHERE id = $1 AND user_id = $2`,
+      req.user.role === "admin"
+        ? [req.params.id]
+        : [req.params.id, req.user.sub],
     );
+
     if (existing.rows.length === 0) {
       return res.status(404).json({ error: "Task not found" });
     }
@@ -122,7 +140,7 @@ router.put("/:id", requireAuth, async (req, res) => {
            status      = $3,
            priority    = $4,
            updated_at  = NOW()
-       WHERE id = $5 AND user_id = $6
+       WHERE id = $5
        RETURNING *`,
       [
         title ?? current.title,
@@ -130,7 +148,6 @@ router.put("/:id", requireAuth, async (req, res) => {
         status ?? current.status,
         priority ?? current.priority,
         req.params.id,
-        req.user.sub,
       ],
     );
     await writeLog(
@@ -150,9 +167,14 @@ router.put("/:id", requireAuth, async (req, res) => {
 router.delete("/:id", requireAuth, async (req, res) => {
   try {
     const result = await pool.query(
-      `DELETE FROM tasks WHERE id = $1 AND user_id = $2 RETURNING id`,
-      [req.params.id, req.user.sub],
+      req.user.role === "admin"
+        ? `DELETE FROM tasks WHERE id = $1 RETURNING id`
+        : `DELETE FROM tasks WHERE id = $1 AND user_id = $2 RETURNING id`,
+      req.user.role === "admin"
+        ? [req.params.id]
+        : [req.params.id, req.user.sub],
     );
+
     if (result.rows.length === 0) {
       return res.status(404).json({ error: "Task not found" });
     }
@@ -168,6 +190,5 @@ router.delete("/:id", requireAuth, async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 module.exports = router;

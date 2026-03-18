@@ -46,17 +46,14 @@
       font-family: var(--font);
       height: 100vh;
       overflow: hidden;
-      background-image:
-        radial-gradient(circle at 10% 20%, rgba(249, 198, 208, .3) 0%, transparent 40%),
+      background-image: radial-gradient(circle at 10% 20%, rgba(249, 198, 208, .3) 0%, transparent 40%),
         radial-gradient(circle at 90% 80%, rgba(200, 182, 226, .2) 0%, transparent 40%),
         radial-gradient(circle at 50% 50%, rgba(168, 218, 220, .15) 0%, transparent 60%);
     }
 
-    /* petals */
     .petal {
       position: fixed;
       pointer-events: none;
-      font-size: 1.2rem;
       animation: fall linear infinite;
       opacity: .7;
       z-index: 0;
@@ -74,7 +71,6 @@
       }
     }
 
-    /* ── AUTH ─────────────────────────────────────────── */
     .auth-wrap {
       min-height: 100vh;
       display: grid;
@@ -117,7 +113,7 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 2rem;
-      box-shadow: 0 8px 40px rgba(232, 99, 122, .1), 0 2px 12px rgba(0, 0, 0, .04);
+      box-shadow: 0 8px 40px rgba(232, 99, 122, .1);
     }
 
     .tabs {
@@ -199,7 +195,6 @@
 
     .btn-main:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(232, 99, 122, .4);
     }
 
     .btn-main:disabled {
@@ -267,7 +262,6 @@
       display: block;
     }
 
-    /* ── APP LAYOUT ───────────────────────────────────── */
     .app {
       display: flex;
       height: 100vh;
@@ -357,7 +351,7 @@
     }
 
     .sb-footer {
-      padding: 1rem 1rem;
+      padding: 1rem;
       border-top: 1.5px solid var(--border);
     }
 
@@ -468,7 +462,6 @@
 
     .btn-create:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(232, 99, 122, .35);
     }
 
     .main-body {
@@ -476,7 +469,10 @@
       overflow-y: auto;
       overflow-x: hidden;
       width: 100%;
-      padding: 0;
+    }
+
+    .inner {
+      padding: 1.4rem 2rem;
     }
 
     .filters {
@@ -497,7 +493,6 @@
       font-size: .82rem;
       outline: none;
       cursor: pointer;
-      transition: all .2s;
     }
 
     .filter-select:focus {
@@ -644,7 +639,406 @@
       font-size: .88rem;
     }
 
-    /* modal */
+    .dashboard-section {
+      display: none;
+    }
+
+    .dashboard-section.visible {
+      display: block;
+    }
+
+    .dash-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .dash-stat {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 1.1rem 1.3rem;
+      box-shadow: 0 4px 16px rgba(232, 99, 122, .06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dash-stat::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      opacity: .08;
+    }
+
+    .dash-stat.s-all::before {
+      background: var(--accent);
+    }
+
+    .dash-stat.s-todo::before {
+      background: var(--muted);
+    }
+
+    .dash-stat.s-progress::before {
+      background: var(--sky);
+    }
+
+    .dash-stat.s-done::before {
+      background: var(--green);
+    }
+
+    .dash-stat-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--muted);
+      margin-bottom: .4rem;
+    }
+
+    .dash-stat-num {
+      font-family: var(--display);
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: .3rem;
+    }
+
+    .dash-stat.s-all .dash-stat-num {
+      color: var(--accent);
+    }
+
+    .dash-stat.s-todo .dash-stat-num {
+      color: var(--muted);
+    }
+
+    .dash-stat.s-progress .dash-stat-num {
+      color: #2a9d8f;
+    }
+
+    .dash-stat.s-done .dash-stat-num {
+      color: var(--green);
+    }
+
+    .dash-stat-sub {
+      font-size: .72rem;
+      color: var(--muted);
+    }
+
+    .dash-charts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .dash-chart-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem 1.4rem;
+      box-shadow: 0 4px 16px rgba(232, 99, 122, .06);
+    }
+
+    .dash-chart-title {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .bar-group {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .bar-label {
+      font-size: .75rem;
+      color: var(--muted);
+      width: 90px;
+      flex-shrink: 0;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 10px;
+      background: var(--surface2);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 20px;
+      transition: width .6s ease;
+    }
+
+    .bar-val {
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--text);
+      width: 18px;
+      text-align: right;
+    }
+
+    .prio-list {
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
+
+    .prio-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .prio-left {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .82rem;
+      color: var(--text);
+    }
+
+    .prio-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .prio-count {
+      font-family: var(--display);
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .prio-count.c-high {
+      color: var(--danger);
+    }
+
+    .prio-count.c-medium {
+      color: var(--warn);
+    }
+
+    .prio-count.c-low {
+      color: #8b72be;
+    }
+
+    .dash-user-section {
+      margin-bottom: 1.4rem;
+    }
+
+    .dash-user-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: .9rem;
+    }
+
+    .dash-user-title {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--accent);
+    }
+
+    .dash-user-summary {
+      display: flex;
+      gap: .6rem;
+    }
+
+    .dsum-pill {
+      font-size: .68rem;
+      font-weight: 700;
+      padding: .2rem .7rem;
+      border-radius: 20px;
+    }
+
+    .dsum-pill.all {
+      background: rgba(232, 99, 122, .1);
+      color: var(--accent);
+    }
+
+    .dsum-pill.adm {
+      background: rgba(244, 162, 97, .15);
+      color: var(--warn);
+    }
+
+    .dsum-pill.mem {
+      background: rgba(158, 126, 126, .1);
+      color: var(--muted);
+    }
+
+    .user-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: .85rem;
+    }
+
+    .user-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 3px 12px rgba(232, 99, 122, .05);
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
+      transition: box-shadow .2s;
+    }
+
+    .user-card:hover {
+      box-shadow: 0 6px 20px rgba(232, 99, 122, .12);
+      border-color: rgba(232, 99, 122, .25);
+    }
+
+    .user-card-top {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+    }
+
+    .uc-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: grid;
+      place-items: center;
+      font-size: .9rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .uc-avatar.is-admin {
+      background: linear-gradient(135deg, var(--warn), #e8b96a);
+    }
+
+    .uc-name {
+      font-weight: 600;
+      font-size: .85rem;
+      color: var(--text);
+    }
+
+    .uc-email {
+      font-size: .68rem;
+      color: var(--muted);
+      margin-top: .05rem;
+    }
+
+    .uc-role {
+      display: inline-block;
+      font-size: .58rem;
+      font-weight: 700;
+      padding: .1rem .45rem;
+      border-radius: 4px;
+      margin-top: .2rem;
+    }
+
+    .uc-role.r-admin {
+      background: rgba(244, 162, 97, .15);
+      color: var(--warn);
+    }
+
+    .uc-role.r-member {
+      background: rgba(232, 99, 122, .1);
+      color: var(--accent);
+    }
+
+    .uc-task-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .4rem;
+    }
+
+    .uc-task-stat {
+      text-align: center;
+      padding: .4rem .2rem;
+      border-radius: 8px;
+      background: var(--surface2);
+    }
+
+    .uc-task-stat-num {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .uc-task-stat-num.c-todo {
+      color: var(--muted);
+    }
+
+    .uc-task-stat-num.c-prog {
+      color: #2a9d8f;
+    }
+
+    .uc-task-stat-num.c-done {
+      color: var(--green);
+    }
+
+    .uc-task-stat-label {
+      font-size: .55rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-top: .1rem;
+    }
+
+    .uc-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: .5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .uc-total-label {
+      font-size: .7rem;
+      color: var(--muted);
+    }
+
+    .uc-total-num {
+      font-family: var(--display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .dash-divider {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1rem;
+    }
+
+    .dash-divider-label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .dash-divider-line {
+      flex: 1;
+      height: 1.5px;
+      background: var(--border);
+    }
+
     .overlay {
       position: fixed;
       inset: 0;
@@ -804,7 +1198,6 @@
       display: block;
     }
 
-    /* toast */
     .toast {
       position: fixed;
       bottom: 1.5rem;
@@ -840,8 +1233,6 @@
       color: var(--danger);
     }
 
-
-    /* custom scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
     }
@@ -855,17 +1246,9 @@
       border-radius: 20px;
     }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(180deg, var(--accent), var(--accent2));
-    }
-
     * {
       scrollbar-width: thin;
       scrollbar-color: #f9c6d0 transparent;
-    }
-
-    .inner {
-      padding: 1.4rem 2rem;
     }
 
     .hidden {
@@ -893,21 +1276,17 @@
 </head>
 
 <body>
-
-  <!-- petals -->
   <script>
     ['🌸', '🌺', '🌼', '🍀', '🌷'].forEach((p, i) => {
       [0, 25, 50, 75, 90].forEach((left, j) => {
-        const el = document.createElement('div');
-        el.className = 'petal';
-        el.textContent = p;
-        el.style.cssText = `left:${left + Math.random() * 10}%;animation-duration:${6 + Math.random() * 6}s;animation-delay:${(i * j * 0.7) % 8}s;font-size:${.8 + Math.random() * .6}rem`;
+        const el = document.createElement('div'); el.className = 'petal'; el.textContent = p;
+        el.style.cssText = `left:${left + Math.random() * 10}%;animation-duration:${6 + Math.random() * 6}s;animation-delay:${(i * j * .7) % 8}s;font-size:${.8 + Math.random() * .6}rem`;
         document.body.appendChild(el);
       });
     });
   </script>
 
-  <!-- ══ AUTH ══════════════════════════════════════════════ -->
+  <!-- AUTH -->
   <div class="auth-wrap" id="auth-wrap">
     <div class="auth-box">
       <div class="auth-deco">🌸 🌷 🌸</div>
@@ -947,12 +1326,15 @@
     </div>
   </div>
 
-  <!-- ══ APP ════════════════════════════════════════════════ -->
+  <!-- APP -->
   <div class="app hidden" id="app-wrap">
     <div class="sidebar">
       <div class="sb-brand"><span class="sb-brand-icon">🌸</span><span class="sb-brand-name">Task Board</span></div>
       <nav class="sb-nav">
-        <a class="sb-item active" onclick="loadTasks()">
+        <a class="sb-item hidden" id="sb-dashboard-item" onclick="showView('dashboard')">
+          <span class="sb-item-icon">📊</span> Dashboard
+        </a>
+        <a class="sb-item active" id="sb-tasks-item" onclick="showView('tasks')">
           <span class="sb-item-icon">✅</span> Tasks
           <span class="sb-badge" id="sb-count">0</span>
         </a>
@@ -964,7 +1346,8 @@
         <div class="sb-user">
           <div class="sb-avatar" id="sb-av">?</div>
           <div>
-            <div class="sb-uname" id="sb-name">-</div><span class="sb-role-badge" id="sb-role">member</span>
+            <div class="sb-uname" id="sb-name">-</div>
+            <span class="sb-role-badge" id="sb-role">member</span>
           </div>
           <button class="sb-logout" onclick="doLogout()" title="ออกจากระบบ">✕</button>
         </div>
@@ -974,13 +1357,65 @@
     <div class="main">
       <div class="main-header">
         <div>
-          <div class="main-header-sub">🌿 TASK MANAGEMENT</div>
-          <div class="main-title">Task Board</div>
+          <div class="main-header-sub" id="main-header-sub">🌿 TASK MANAGEMENT</div>
+          <div class="main-title" id="main-title">Task Board</div>
         </div>
-        <button class="btn-create" onclick="openModal()">🌸 + สร้าง Task</button>
+        <button class="btn-create hidden" id="btn-create-task" onclick="openModal()">🌸 + สร้าง Task</button>
       </div>
       <div class="main-body">
         <div class="inner">
+
+          <!-- DASHBOARD (admin only) -->
+          <div class="dashboard-section" id="view-dashboard">
+            <div class="dash-stats">
+              <div class="dash-stat s-all">
+                <div class="dash-stat-label">TASK ทั้งหมด</div>
+                <div class="dash-stat-num" id="d-total">0</div>
+                <div class="dash-stat-sub">งานทั้งหมดในระบบ</div>
+              </div>
+              <div class="dash-stat s-todo">
+                <div class="dash-stat-label">TODO</div>
+                <div class="dash-stat-num" id="d-todo">0</div>
+                <div class="dash-stat-sub">รอดำเนินการ</div>
+              </div>
+              <div class="dash-stat s-progress">
+                <div class="dash-stat-label">IN PROGRESS</div>
+                <div class="dash-stat-num" id="d-progress">0</div>
+                <div class="dash-stat-sub">กำลังดำเนินการ</div>
+              </div>
+              <div class="dash-stat s-done">
+                <div class="dash-stat-label">DONE</div>
+                <div class="dash-stat-num" id="d-done">0</div>
+                <div class="dash-stat-sub">เสร็จสิ้นแล้ว</div>
+              </div>
+            </div>
+
+            <div class="dash-charts">
+              <div class="dash-chart-card">
+                <div class="dash-chart-title">📊 สถานะ Task</div>
+                <div class="bar-group" id="dash-status-bars"></div>
+              </div>
+              <div class="dash-chart-card">
+                <div class="dash-chart-title">🌺 ความสำคัญ</div>
+                <div class="prio-list" id="dash-prio-list"></div>
+              </div>
+            </div>
+
+            <div class="dash-user-section" id="dash-user-section" style="display:none">
+              <div class="dash-user-header">
+                <div class="dash-user-title">👑 ภาพรวมผู้ใช้ในระบบ</div>
+                <div class="dash-user-summary" id="dash-user-summary"></div>
+              </div>
+              <div class="user-cards-grid" id="dash-user-cards"></div>
+            </div>
+
+            <div class="dash-divider">
+              <div class="dash-divider-label">📋 รายการ Task ทั้งหมด</div>
+              <div class="dash-divider-line"></div>
+            </div>
+          </div>
+
+          <!-- Filters -->
           <div class="filters">
             <select class="filter-select" id="f-status" onchange="renderTable()">
               <option value="">Status: ทั้งหมด</option>
@@ -996,6 +1431,7 @@
             </select>
             <span class="logged-as">Logged in as <strong id="la-name">-</strong></span>
           </div>
+
           <div class="task-table-wrap">
             <table>
               <thead>
@@ -1011,12 +1447,13 @@
               <tbody id="task-tbody"></tbody>
             </table>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ══ MODAL ══════════════════════════════════════════════ -->
+  <!-- MODAL -->
   <div class="overlay hidden" id="overlay" onclick="closeOverlay(event)">
     <div class="modal">
       <div class="modal-hdr">
@@ -1028,16 +1465,14 @@
       <div class="modal-fg"><label>รายละเอียด</label><textarea id="m-desc"
           placeholder="รายละเอียดเพิ่มเติม..."></textarea></div>
       <div class="row2">
-        <div class="modal-fg">
-          <label>สถานะ</label>
+        <div class="modal-fg"><label>สถานะ</label>
           <select id="m-status">
             <option value="TODO">📋 Todo</option>
             <option value="IN_PROGRESS">🔄 In Progress</option>
             <option value="DONE">✅ Done</option>
           </select>
         </div>
-        <div class="modal-fg">
-          <label>ความสำคัญ</label>
+        <div class="modal-fg"><label>ความสำคัญ</label>
           <select id="m-priority">
             <option value="low">🍀 Low</option>
             <option value="medium" selected>🌼 Medium</option>
@@ -1056,7 +1491,7 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    let allTasks = [], currentUser = null;
+    let allTasks = [], allUsers = [], currentUser = null, currentView = 'tasks';
 
     function switchTab(t) {
       document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', (i === 0 && t === 'login') || (i === 1 && t === 'register')));
@@ -1066,8 +1501,7 @@
     function fill(e, p) { document.getElementById('l-email').value = e; document.getElementById('l-pass').value = p; }
 
     async function doLogin() {
-      const email = document.getElementById('l-email').value.trim();
-      const pw = document.getElementById('l-pass').value;
+      const email = document.getElementById('l-email').value.trim(), pw = document.getElementById('l-pass').value;
       const btn = document.getElementById('l-btn'), msg = document.getElementById('l-msg');
       msg.className = 'auth-msg';
       if (!email || !pw) { showM(msg, 'กรอกข้อมูลให้ครบ', 'err'); return; }
@@ -1080,17 +1514,14 @@
     }
 
     async function doRegister() {
-      const username = document.getElementById('r-user').value.trim();
-      const email = document.getElementById('r-email').value.trim();
-      const pw = document.getElementById('r-pass').value;
+      const username = document.getElementById('r-user').value.trim(), email = document.getElementById('r-email').value.trim(), pw = document.getElementById('r-pass').value;
       const btn = document.getElementById('r-btn'), msg = document.getElementById('r-msg');
       msg.className = 'auth-msg';
       if (!username || !email || !pw) { showM(msg, 'กรอกข้อมูลให้ครบ', 'err'); return; }
       btn.disabled = true; btn.innerHTML = '<span class="spin"></span>กำลังสมัคร…';
       try {
         await api(`${CONFIG.AUTH_SERVICE_URL}/api/auth/register`, { method: 'POST', body: JSON.stringify({ username, email, password: pw }) });
-        showM(msg, 'สมัครสำเร็จ! 🌸 กรุณาเข้าสู่ระบบ', 'ok');
-        setTimeout(() => switchTab('login'), 1500);
+        showM(msg, 'สมัครสำเร็จ! 🌸 กรุณาเข้าสู่ระบบ', 'ok'); setTimeout(() => switchTab('login'), 1500);
       } catch (e) { showM(msg, e.message, 'err'); }
       finally { btn.disabled = false; btn.innerHTML = '🌿 สมัครสมาชิก'; }
     }
@@ -1105,7 +1536,36 @@
       document.getElementById('la-name').textContent = `${name} (${role})`;
       const rb = document.getElementById('sb-role');
       rb.textContent = role; rb.className = 'sb-role-badge' + (role === 'admin' ? ' admin' : '');
+
+      if (role === 'admin') {
+        document.getElementById('sb-dashboard-item').classList.remove('hidden');
+        showView('dashboard');
+        api(`${CONFIG.USER_SERVICE_URL}/api/users`).then(d => {
+          allUsers = Array.isArray(d) ? d : (d.users || []);
+          renderDashboard();
+        }).catch(() => { });
+      } else {
+        showView('tasks');
+      }
       loadTasks();
+    }
+
+    function showView(view) {
+      currentView = view;
+      const isDash = view === 'dashboard';
+      document.getElementById('sb-dashboard-item').classList.toggle('active', isDash);
+      document.getElementById('sb-tasks-item').classList.toggle('active', !isDash);
+      document.getElementById('view-dashboard').classList.toggle('visible', isDash);
+      if (isDash) {
+        document.getElementById('main-header-sub').textContent = '📊 ADMIN';
+        document.getElementById('main-title').textContent = 'Dashboard';
+        document.getElementById('btn-create-task').classList.add('hidden');
+      } else {
+        document.getElementById('main-header-sub').textContent = '🌿 TASK MANAGEMENT';
+        document.getElementById('main-title').textContent = 'Task Board';
+        document.getElementById('btn-create-task').classList.remove('hidden');
+      }
+      renderTable();
     }
 
     async function loadTasks() {
@@ -1116,58 +1576,160 @@
         allTasks = Array.isArray(d) ? d : (d.tasks || []);
         document.getElementById('sb-count').textContent = allTasks.length;
         renderTable();
-      } catch (e) { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--danger)">${e.message}</td></tr>`; }
+        if (currentUser && currentUser.role === 'admin') renderDashboard();
+      } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--danger)">${e.message}</td></tr>`;
+      }
+    }
+
+    // ============================================================
+    // ฟังก์ชันหา tasks ของแต่ละ user — รองรับหลายรูปแบบของ field
+    // ============================================================
+    function getTasksForUser(u, tasks) {
+      // task-service เก็บ user_id ตรงกับ u.id (ไม่ใช่ u.user_id)
+      const uid = String(u.id || u.user_id || '');
+      const uname = String(u.username || '').toLowerCase();
+      const uemail = String(u.email || '').toLowerCase();
+
+      return tasks.filter(t => {
+        // match by id (primary — task.user_id ↔ user.id)
+        if (uid && t.user_id !== undefined && t.user_id !== null) {
+          if (String(t.user_id) === uid) return true;
+        }
+        // match by username field on task
+        if (uname && t.username !== undefined && t.username !== null) {
+          if (String(t.username).toLowerCase() === uname) return true;
+        }
+        // match by owner field on task
+        if (uname && t.owner !== undefined && t.owner !== null) {
+          if (String(t.owner).toLowerCase() === uname) return true;
+        }
+        // match by created_by field
+        if (uid && t.created_by !== undefined && t.created_by !== null) {
+          if (String(t.created_by) === uid) return true;
+        }
+        // match by email
+        if (uemail && t.email !== undefined && t.email !== null) {
+          if (String(t.email).toLowerCase() === uemail) return true;
+        }
+        return false;
+      });
+    }
+
+    function renderDashboard() {
+      const tasks = allTasks;
+      const todo = tasks.filter(t => t.status === 'TODO').length;
+      const progress = tasks.filter(t => t.status === 'IN_PROGRESS').length;
+      const done = tasks.filter(t => t.status === 'DONE').length;
+      const high = tasks.filter(t => t.priority === 'high').length;
+      const medium = tasks.filter(t => t.priority === 'medium').length;
+      const low = tasks.filter(t => t.priority === 'low').length;
+
+      document.getElementById('d-total').textContent = tasks.length;
+      document.getElementById('d-todo').textContent = todo;
+      document.getElementById('d-progress').textContent = progress;
+      document.getElementById('d-done').textContent = done;
+
+      const mx = Math.max(todo, progress, done, 1);
+      document.getElementById('dash-status-bars').innerHTML = `
+        <div class="bar-row"><div class="bar-label">TODO</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(todo / mx * 100)}%;background:var(--muted)"></div></div><div class="bar-val">${todo}</div></div>
+        <div class="bar-row"><div class="bar-label">In Progress</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(progress / mx * 100)}%;background:#2a9d8f"></div></div><div class="bar-val">${progress}</div></div>
+        <div class="bar-row"><div class="bar-label">Done</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(done / mx * 100)}%;background:var(--green)"></div></div><div class="bar-val">${done}</div></div>`;
+
+      document.getElementById('dash-prio-list').innerHTML = `
+        <div class="prio-row"><div class="prio-left"><div class="prio-dot" style="background:var(--danger)"></div>High</div><div class="prio-count c-high">${high}</div></div>
+        <div class="prio-row"><div class="prio-left"><div class="prio-dot" style="background:var(--warn)"></div>Medium</div><div class="prio-count c-medium">${medium}</div></div>
+        <div class="prio-row"><div class="prio-left"><div class="prio-dot" style="background:#8b72be"></div>Low</div><div class="prio-count c-low">${low}</div></div>`;
+
+      if (!allUsers.length) return;
+      const sec = document.getElementById('dash-user-section');
+      sec.style.display = 'block';
+
+      const adminCnt = allUsers.filter(u => u.role === 'admin').length;
+      document.getElementById('dash-user-summary').innerHTML = `
+        <span class="dsum-pill all">รวม ${allUsers.length} คน</span>
+        <span class="dsum-pill adm">Admin ${adminCnt}</span>
+        <span class="dsum-pill mem">Member ${allUsers.length - adminCnt}</span>`;
+
+      // Debug: log ตัวอย่างเพื่อตรวจสอบ field ที่ใช้ match
+      if (tasks.length > 0) {
+        console.log('[DEBUG] sample task fields:', Object.keys(tasks[0]), tasks[0]);
+      }
+      if (allUsers.length > 0) {
+        console.log('[DEBUG] sample user fields:', Object.keys(allUsers[0]), allUsers[0]);
+      }
+
+      document.getElementById('dash-user-cards').innerHTML = allUsers.map(u => {
+        const uname = u.display_name || u.username || '-';
+        const isAdmin = u.role === 'admin';
+        const myTasks = getTasksForUser(u, tasks);
+        const myTodo = myTasks.filter(t => t.status === 'TODO').length;
+        const myProg = myTasks.filter(t => t.status === 'IN_PROGRESS').length;
+        const myDone = myTasks.filter(t => t.status === 'DONE').length;
+
+        console.log(`[DEBUG] ${uname}: matched ${myTasks.length} tasks (todo=${myTodo}, prog=${myProg}, done=${myDone})`);
+
+        return `<div class="user-card">
+          <div class="user-card-top">
+            <div class="uc-avatar ${isAdmin ? 'is-admin' : ''}">${uname.charAt(0).toUpperCase()}</div>
+            <div>
+              <div class="uc-name">${esc(uname)}</div>
+              <div class="uc-email">${esc(u.email || '-')}</div>
+              <span class="uc-role ${isAdmin ? 'r-admin' : 'r-member'}">${u.role || 'member'}</span>
+            </div>
+          </div>
+          <div class="uc-task-row">
+            <div class="uc-task-stat"><div class="uc-task-stat-num c-todo">${myTodo}</div><div class="uc-task-stat-label">TODO</div></div>
+            <div class="uc-task-stat"><div class="uc-task-stat-num c-prog">${myProg}</div><div class="uc-task-stat-label">IN PROG</div></div>
+            <div class="uc-task-stat"><div class="uc-task-stat-num c-done">${myDone}</div><div class="uc-task-stat-label">DONE</div></div>
+          </div>
+          <div class="uc-total">
+            <div class="uc-total-label">Task ทั้งหมด</div>
+            <div class="uc-total-num">${myTasks.length}</div>
+          </div>
+        </div>`;
+      }).join('');
     }
 
     function renderTable() {
-      const fs = document.getElementById('f-status').value;
-      const fp = document.getElementById('f-priority').value;
+      const fs = document.getElementById('f-status').value, fp = document.getElementById('f-priority').value;
       const rows = allTasks.filter(t => (!fs || t.status === fs) && (!fp || t.priority === fp));
       const tbody = document.getElementById('task-tbody');
       if (!rows.length) { tbody.innerHTML = '<tr class="empty-row"><td colspan="6">🌿 ไม่มี task ที่ตรงกับเงื่อนไข</td></tr>'; return; }
       tbody.innerHTML = rows.map(t => `
-      <tr>
-        <td><div class="td-title">${esc(t.title)}</div>${t.description ? `<div class="td-desc">${esc(t.description)}</div>` : ''}</td>
-        <td><span class="badge b-${t.status || 'TODO'}">${t.status || 'TODO'}</span></td>
-        <td><span class="badge b-${t.priority || 'medium'}">${t.priority || 'medium'}</span></td>
-        <td style="color:var(--muted)">${esc(t.username || currentUser?.username || '-')}</td>
-        <td style="color:var(--muted);font-size:.78rem">${fmtDate(t.updated_at || t.created_at)}</td>
-        <td><div class="td-actions">
-          <button class="btn-edit" onclick='openEdit(${JSON.stringify(t)})'>Edit</button>
-          <button class="btn-del" onclick="delTask(${t.id})">Delete</button>
-        </div></td>
-      </tr>`).join('');
+        <tr>
+          <td><div class="td-title">${esc(t.title)}</div>${t.description ? `<div class="td-desc">${esc(t.description)}</div>` : ''}</td>
+          <td><span class="badge b-${t.status || 'TODO'}">${t.status || 'TODO'}</span></td>
+          <td><span class="badge b-${t.priority || 'medium'}">${t.priority || 'medium'}</span></td>
+          <td style="color:var(--muted)">${esc(t.username || currentUser?.username || '-')}</td>
+          <td style="color:var(--muted);font-size:.78rem">${fmtDate(t.updated_at || t.created_at)}</td>
+          <td><div class="td-actions">
+            <button class="btn-edit" onclick='openEdit(${JSON.stringify(t)})'>Edit</button>
+            <button class="btn-del" onclick="delTask(${t.id})">Delete</button>
+          </div></td>
+        </tr>`).join('');
     }
 
     function openModal() {
       document.getElementById('modal-ttl').textContent = '🌸 สร้าง Task ใหม่';
       ['m-id', 'm-title', 'm-desc'].forEach(id => document.getElementById(id).value = '');
-      document.getElementById('m-status').value = 'TODO';
-      document.getElementById('m-priority').value = 'medium';
-      document.getElementById('m-save').textContent = '🌸 บันทึก';
-      document.getElementById('m-msg').className = 'modal-msg';
+      document.getElementById('m-status').value = 'TODO'; document.getElementById('m-priority').value = 'medium';
+      document.getElementById('m-save').textContent = '🌸 บันทึก'; document.getElementById('m-msg').className = 'modal-msg';
       document.getElementById('overlay').classList.remove('hidden');
     }
     function openEdit(t) {
       document.getElementById('modal-ttl').textContent = '🌷 แก้ไข Task';
-      document.getElementById('m-id').value = t.id;
-      document.getElementById('m-title').value = t.title || '';
-      document.getElementById('m-desc').value = t.description || '';
-      document.getElementById('m-status').value = t.status || 'TODO';
-      document.getElementById('m-priority').value = t.priority || 'medium';
-      document.getElementById('m-save').textContent = '🌷 อัปเดต';
-      document.getElementById('m-msg').className = 'modal-msg';
-      document.getElementById('overlay').classList.remove('hidden');
+      document.getElementById('m-id').value = t.id; document.getElementById('m-title').value = t.title || '';
+      document.getElementById('m-desc').value = t.description || ''; document.getElementById('m-status').value = t.status || 'TODO';
+      document.getElementById('m-priority').value = t.priority || 'medium'; document.getElementById('m-save').textContent = '🌷 อัปเดต';
+      document.getElementById('m-msg').className = 'modal-msg'; document.getElementById('overlay').classList.remove('hidden');
     }
     function closeModal() { document.getElementById('overlay').classList.add('hidden'); }
     function closeOverlay(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
 
     async function saveTask() {
-      const id = document.getElementById('m-id').value;
-      const title = document.getElementById('m-title').value.trim();
-      const desc = document.getElementById('m-desc').value.trim();
-      const status = document.getElementById('m-status').value;
-      const priority = document.getElementById('m-priority').value;
+      const id = document.getElementById('m-id').value, title = document.getElementById('m-title').value.trim();
+      const desc = document.getElementById('m-desc').value.trim(), status = document.getElementById('m-status').value, priority = document.getElementById('m-priority').value;
       const btn = document.getElementById('m-save'), msg = document.getElementById('m-msg');
       msg.className = 'modal-msg';
       if (!title) { msg.className = 'modal-msg err'; msg.textContent = 'กรุณาระบุชื่อ Task'; return; }
@@ -1188,16 +1750,8 @@
 
     function doLogout() { removeToken(); location.reload(); }
     function showM(el, txt, type) { el.className = `auth-msg ${type}`; el.textContent = txt; }
-    function toast(msg, type = 'ok') {
-      const t = document.getElementById('toast');
-      t.textContent = msg; t.className = `toast ${type} show`;
-      setTimeout(() => t.classList.remove('show'), 2500);
-    }
-    function fmtDate(s) {
-      if (!s) return '-';
-      const d = new Date(s);
-      return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear() - 543 + 2568} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-    }
+    function toast(msg, type = 'ok') { const t = document.getElementById('toast'); t.textContent = msg; t.className = `toast ${type} show`; setTimeout(() => t.classList.remove('show'), 2500); }
+    function fmtDate(s) { if (!s) return '-'; const d = new Date(s); return `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear() - 543 + 2568} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`; }
     function esc(s) { return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
     async function api(url, opts = {}) {
       const token = getToken();
