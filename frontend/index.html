@@ -1587,7 +1587,7 @@
     // ============================================================
     function getTasksForUser(u, tasks) {
       // task-service เก็บ user_id ตรงกับ u.id (ไม่ใช่ u.user_id)
-      const uid = String(u.id || u.user_id || '');
+      const uid = String(u.user_id || u.id || '');
       const uname = String(u.username || '').toLowerCase();
       const uemail = String(u.email || '').toLowerCase();
 
