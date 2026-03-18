@@ -47,6 +47,7 @@ services:
 
   task-service-1:
     build: ./task-service
+    container_name: task-service-1
     environment:
       DATABASE_URL: postgres://admin:secret@task-db:5432/taskdb
       JWT_SECRET: dev-shared-secret
@@ -59,6 +60,7 @@ services:
 
   task-service-2:
     build: ./task-service
+    container_name: task-service-2
     environment:
       DATABASE_URL: postgres://admin:secret@task-db:5432/taskdb
       JWT_SECRET: dev-shared-secret
