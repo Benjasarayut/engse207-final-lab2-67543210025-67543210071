@@ -45,7 +45,7 @@ services:
     depends_on:
       - auth-db
 
-  task-service:
+  task-service-1:
     build: ./task-service
     environment:
       DATABASE_URL: postgres://admin:secret@task-db:5432/taskdb
@@ -54,6 +54,18 @@ services:
       NODE_ENV: development
     ports:
       - "3002:3002"
+    depends_on:
+      - task-db
+
+  task-service-2:
+    build: ./task-service
+    environment:
+      DATABASE_URL: postgres://admin:secret@task-db:5432/taskdb
+      JWT_SECRET: dev-shared-secret
+      PORT: 3002
+      NODE_ENV: development
+    ports:
+      - "3004:3002"
     depends_on:
       - task-db
 
@@ -78,5 +90,6 @@ services:
       - ./frontend:/usr/share/nginx/html:ro
     depends_on:
       - auth-service
-      - task-service
+      - task-service-1
+      - task-service-2
       - user-service
